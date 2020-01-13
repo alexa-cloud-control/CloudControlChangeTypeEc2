@@ -68,11 +68,11 @@ Resources:
                 Action: 'ec2:*'
                 Resource: '*'
   
-  TagActionEc2FunctionLambda:
+  ChangeTypeEc2FunctionLambda:
     Type: AWS::Lambda::Function
     Properties:
       Description: Alexa CloudControl Change Type EC2 Function
-      FunctionName: CloudControlTChangeTypeEc2
+      FunctionName: CloudControlChangeTypeEc2
       Code:
         S3Bucket: !ImportValue Alexa-CloudControl-Infrastructure-ArtifactsBucket
         S3Key: CloudControlChangeTypeEc2.zip
