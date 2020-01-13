@@ -24,17 +24,17 @@ def cloud_control_change_type_ec2(event, context):
         msg = "I cannot find the instance with name {}.".format(event["body"]["InstanceName"])
         return {"msg": msg}
 
-    ec2_instance = ec2.instances.filter(InstanceIds=instance_list)
+    # ec2_instance = ec2.instances.filter(InstanceIds=instance_list)
 
     try:
-        ec2_client.stop_instances(InstanceIds=[ec2_instance])
+        ec2_client.stop_instances(InstanceIds=[instance_list[0]])
         if_stopped = ec2_client.get_waiter('instance_stopped')
-        if_stopped.wait(InstanceIds=[ec2_instance])
+        if_stopped.wait(InstanceIds=[instance_list[0]])
         ec2_client.modify_instance_attribute(
-            InstanceId=ec2_instance,
+            InstanceId=instance_list[0],
             Attribute='instanceType',
             Value=event["body"]["NewType"])
-        ec2_client.start_instances(InstanceIds=[ec2_instance])
+        ec2_client.start_instances(InstanceIds=[instance_list[0]])
         msg = "Instance is back on-line."
         return {"msg": msg}
     except (SyntaxError, KeyError, NameError) as e_msg:

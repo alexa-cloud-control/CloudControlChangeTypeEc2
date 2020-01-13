@@ -79,7 +79,7 @@ Resources:
       Runtime: python3.6
       Handler: cloud_control_change_type_ec2.cloud_control_change_type_ec2
       MemorySize: 128
-      Timeout: 10
+      Timeout: 60
       Environment:
         Variables:
           table: CONTEXTTABLE
