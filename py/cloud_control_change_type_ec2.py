@@ -5,7 +5,6 @@ def cloud_control_change_type_ec2(event, context):
     """ Lambda function - change ec2 type """
 
     # validate instance name
-    ec2 = boto3.resource('ec2')
     ec2_client = boto3.client('ec2')
     response = ec2_client.describe_instances(
         Filters=[
@@ -23,8 +22,6 @@ def cloud_control_change_type_ec2(event, context):
     if not instance_list:
         msg = "I cannot find the instance with name {}.".format(event["body"]["InstanceName"])
         return {"msg": msg}
-
-    # ec2_instance = ec2.instances.filter(InstanceIds=instance_list)
 
     try:
         ec2_client.stop_instances(InstanceIds=[instance_list[0]])
